@@ -13,7 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="http://stakdek.de/Web/bootstrap_css" rel="stylesheet">
     <!-- Favicons -->
-    <link rel="icon" href="img/logo.png">
+    <link rel="icon" href="img/logo_icon.png">
     <script src="http://stakdek.de/Web/bootstrap_js"></script>
     <meta name="theme-color" content="#563d7c">
 
