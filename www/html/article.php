@@ -59,20 +59,7 @@
     </div>
   </header>
 
-  <div class="nav-scroller py-1 mb-2">
-    <nav class="nav d-flex justify-content-between">
-      <?php
-      $categories = file_get_contents("categories.json");
-      $parsed_categories = json_decode($categories, true);
-      foreach ($parsed_categories as $category) {
-        echo '<a class="p-2 text-muted" href="#">';
-        echo $category;
-        echo '</a>';
-      }
-
-      ?>
-    </nav>
-  </div>
+  <?php include 'nav.php' ?>
 
   <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
     <div class="col-md-6 px-0">
@@ -84,35 +71,6 @@
     </div>
   </div>
 
-  <div class="row mb-2">
-    <?php
-    $limiter=2;
-    $index=0;
-    $blogs = file_get_contents("blogs.json");
-    $parsed_blogs = json_decode($blogs, true);
-    foreach ($parsed_blogs as $blog) {
-        if ($limiter > $index) {
-          $index = $index + 1;
-          echo '<div class="col-md-6"><div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">';
-          echo '<div class="col p-4 d-flex flex-column position-static">  <strong class="d-inline-block mb-2 text-';
-          echo $blog['bs-color-class'];
-          echo '">';
-          echo $blog['category'];
-          echo '</strong><h3 class="mb-0">';
-          echo $blog['title'];
-          echo '</h3><div class="mb-1 text-muted">';
-          echo $blog['date'];
-          echo '</div><p class="card-text mb-auto">';
-          echo $blog['desc'];
-          echo '</p><a href="article.php?id=' . $blog['id'] . '" class="stretched-link">Continue reading</a></div>';
-          echo '<div class="col-auto d-none d-lg-block">';
-          echo '<svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>';
-          echo '</div></div></div>';
-      }
-
-    }
-    ?>
-  </div>
 </div>
 
 <main role="main" class="container">
@@ -122,21 +80,16 @@
         <?php echo $parsed_settings['page_slider_title']; ?>
       </h3>
       <?php
+      $id = htmlspecialchars($_GET["id"]);
       $blogs = file_get_contents("blogs.json");
       $parsed_blogs = json_decode($blogs, true);
       foreach ($parsed_blogs as $blog) {
-          echo '<div class="mb-3 blog-post">';
-          echo '<h2 class="blog-post-title">';
-          echo $blog['title'];
-          echo '</h2>';
-
-          echo '<p class="blog-post-meta">';
-          echo $blog['date'];
-          echo ', by ';
-          echo $blog['author'];
-          echo '</p>';
-          echo $blog['content'];
-          echo '</div>';
+          if ($id == $blog['id']) {
+            echo '<div class="mb-3 blog-post"><h2 class="blog-post-title">';
+            echo $blog['title'] . '</h2><p class="blog-post-meta">';
+            echo $blog['date'] . ', by ' . $blog['author'] . '</p>';
+            echo $blog['content'] . '</div>';
+          }
 
       }
       ?>
