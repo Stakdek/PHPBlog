@@ -91,7 +91,7 @@
     $blogs = file_get_contents("blogs.json");
     $parsed_blogs = json_decode($blogs, true);
     foreach ($parsed_blogs as $blog) {
-        if ($limiter >= $index) {
+        if ($limiter > $index) {
           $index = $index + 1;
           echo '<div class="col-md-6"><div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">';
           echo '<div class="col p-4 d-flex flex-column position-static">  <strong class="d-inline-block mb-2 text-';
